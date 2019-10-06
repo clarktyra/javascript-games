@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>inputs</title>
+    </head>
+    <body>
+        <canvas width="500" height="500" style="border:2px solid #000000" id="ctx" />
+        <script>
+        var ctx = document.getElementById('ctx').getContext('2d');
+
+        document.getElementById('ctx').onmousedown = function(){
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(100,100,50,50);
+        }
+
+        document.getElementById('ctx').onmouseup = function(){
+            ctx.fillStyle = 'red';
+            ctx.fillRect(100,100,50,50);
+        }
+
+        document.onkeydown = function(event){
+             // A - 65
+             // Upper arrow - 38
+             if (event.keyCode == 65) {
+                ctx.fillText('A is pressed', 200, 450)
+             } else if (event.keyCode == 32 ){
+                ctx.fillText(' Space baris pressed', 300, 300)
+             }
+        }
+
+        </script>
+    </body>
+</html>
