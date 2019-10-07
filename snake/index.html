@@ -67,6 +67,7 @@
             ctx.restore();
         }
 
+
         updateSnakeList = function() {
             for( var i =snakeList.length -1; i>=0 ; i--){
                 if(direction == 0){
@@ -76,7 +77,7 @@
                         snakeList[i].x = snakeList[i-1].x
                         snakeList[i].y = snakeList[i-1].y
                     }
-                } else  if(direction == 1){
+                } else  if(direction == 1){ 
                     if(i == 0){
                         snakeList[i].y = snakeList[y-5].y
                     } else {
