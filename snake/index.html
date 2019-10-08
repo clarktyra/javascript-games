@@ -14,8 +14,9 @@
         var ctx = document.getElementById("ctx").getContext("2d");
         var WIDTH = 500;
         var HEIGHT = 500;
-        var snakeList, foodList, direction, eaten;
+        var snakeList, foodList, direction, eaten, intervalVar, score, running=false;
         ctx.font = "20px Calibri";
+        ctx.fillText('Click me to start the game', 140, 250);
 
         var snakeBody = {
             width: 20,
@@ -29,23 +30,28 @@
             color: 'orange'
         };
 
+        document.getElementById('ctx').onmousedown = function() {
+            if(running){
+                clearInterval(intervalVar);
+                running = false
+            }
+            startgame()
+            
+        }
+
         document.onkeydown = function(event) {
             // 0 - left
             // 1 - up
             // 2 - right
             // 3 - down
-            if(event.keyCode == 37){
+            if(event.keyCode == 37 && direction !=2){
                 direction = 0;
-                console.log('0');
-            } else if(event.keyCode == 38){
+            } else if(event.keyCode == 38 && direction !=3){
                 direction = 1;
-                console.log('1');
-            } else if(event.keyCode == 39){
+            } else if(event.keyCode == 39 && direction !=0){
                 direction = 2;
-                console.log('2');
-            } else if(event.keyCode == 40){
+            } else if(event.keyCode == 40 && direction !=1){
                 direction = 3;
-                console.log('3');
             } 
         }
 
@@ -57,10 +63,8 @@
         }
 
         testCollisionSnake = function(snake1, snake2){
-            return(
-            (Math.abs(snake1.x-snake2.x)<5) &&
-            (Math.abs(snake1.y-snake2.y)<5)
-            )
+            return((Math.abs(snake1.x-snake2.x)<5) &&
+            (Math.abs(snake1.y-snake2.y)<5));
         }
 
         drawSnake = function(sb, i){
@@ -138,7 +142,8 @@
                 }
                 if (testCollisionSnake(snakeList[0], snakeList[i])){
                     clearInterval(intervalVar);
-                    return
+                    ctx.fillText('Game Over! Click to restart', 150, 250)
+                    return;
                 }
             }
         }
@@ -157,6 +162,7 @@
             if(testCollision(snakeList[0], foodList[0])){
                 foodList = [];
                 eaten = true;
+                score += 1;
                 var new_X, new_Y;
                 if (direction == 0){
                     new_X = snakeList[0].x - 10;
@@ -173,6 +179,7 @@
                 }
                 snakeList.unshift({x:new_X, y:new_Y})
             }
+            ctx.fillText('Score: '+score, 420, 30);
             isGameOver();
             checkSnakePosition();
             updateSnakeList();
@@ -187,10 +194,11 @@
             foodList = [];
             direction = 99;
             eaten = true;
-            setInterval(updateSnakePosition, 50)
+            score = 0;
+            running = true;
+            intervalVar = setInterval(updateSnakePosition, 20)
         }
 
-        startgame();
 
     </script>
 
