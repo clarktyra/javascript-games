@@ -60,7 +60,7 @@
     var ctx     = document.getElementById("ctx").getContext('2d');
     var WIDTH   = 500;
     var HEIGHT  = 500;
-    var numOfTiles, tileList;
+    var numOfTiles, tileList, score;
     ctx.font    = "20px Calibri";
     ctx.fillText("New Breakout Game", 100, 100) 
 
@@ -80,7 +80,8 @@
         width:100,
         color: "red",
         pressingLeft: false,
-        pressingRight: false
+        pressingRight: false,
+        lives: 3
     }
 
     var tile = {
@@ -112,6 +113,14 @@
                 (ball.x < base.x + base.width) &&
                 (base.y < ball.y + 2*ball.radius) &&
                 (ball.y < base.y + base.height)
+        );
+    }
+
+    testCollisionTile = function(t, ball){
+        return((t.x < ball.x + 2*ball.radius) &&
+                (ball.x < t.x + tile.width) &&
+                (t.y < ball.y + 2*ball.radius) &&
+                (ball.y < t.y + tile.height)
         );
     }
 
@@ -159,8 +168,12 @@
         if(ball.x > WIDTH || ball.x<0){
             ball.spdX = -ball.spdX
         }
-        if(ball.y > HEIGHT || ball.y<0){
+        if( ball.y<0){
             ball.spdY = -ball.spdY
+        }
+        if(ball.y > HEIGHT ){
+            ball.spdY = -ball.spdY
+            base.lives -= 1;
         }
         // if(ball.y == base.y && (ball.x > base.x && ball.x < base.x+base.width)){
         //     ball.spdY = -ball.spdY
@@ -175,6 +188,18 @@
         if (testCollion(base,ball)){
             ball.spdY = -ball.spdY
         }
+
+        for(key in tileList){
+            if(testCollisionTile(tileList[key], ball)){
+                delete tileList[key];
+                ball.spdY = -ball.spdY;
+                score +=5;
+            }
+        }
+
+        ctx.fillText("Score: " +score, 5, 490)
+        ctx.fillText("Lives: " +base.lives, 430, 490)
+
         updateBasePostion();
         updateBallPostion();
     }
@@ -187,6 +212,8 @@
         var tileX = 5;
         var tileY = 5;
         tileList = [];
+        score = 0
+        base.lives = 3;
         for (var i=1; i<=6; i++){
             tileX = 5;
             for(var j=1; j<= 11; j++){
