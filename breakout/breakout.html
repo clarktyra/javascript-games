@@ -60,6 +60,7 @@
     var ctx     = document.getElementById("ctx").getContext('2d');
     var WIDTH   = 500;
     var HEIGHT  = 500;
+    var numOfTiles, tileList;
     ctx.font    = "20px Calibri";
     ctx.fillText("New Breakout Game", 100, 100) 
 
@@ -67,7 +68,9 @@
         x: 0,
         y: 0,
         radius:5,
-        color: "blue"
+        color: "blue", 
+        spdX: -5,
+        spdY:-5
     }
 
     var base = {
@@ -78,6 +81,12 @@
         color: "red",
         pressingLeft: false,
         pressingRight: false
+    }
+
+    var tile = {
+        height: 20,
+        width: 40,
+        color: 'black'
     }
 
     document.onkeydown = function(event){
@@ -98,6 +107,14 @@
         }
     }
 
+    testCollion = function(base, ball){
+        return((base.x < ball.x + 2*ball.radius) &&
+                (ball.x < base.x + base.width) &&
+                (base.y < ball.y + 2*ball.radius) &&
+                (ball.y < base.y + base.height)
+        );
+    }
+
     drawBall = function() {
         ctx.save();
         ctx.fillStyle = ball.color;
@@ -111,6 +128,13 @@
         ctx.save();
         ctx.fillStyle = base.color;
         ctx.fillRect(base.x, base.y, base.width, base.height)
+        ctx.restore();
+    }
+
+    drawTiles = function(t, i){
+        ctx.save();
+        ctx.fillStyle = tile.color;
+        ctx.fillRect(t.x, t.y, tile.width, tile.height)
         ctx.restore();
     }
 
@@ -129,17 +153,49 @@
         }
     }
 
+    updateBallPostion = function(){
+        ball.x += ball.spdX;
+        ball.y += ball.spdY;
+        if(ball.x > WIDTH || ball.x<0){
+            ball.spdX = -ball.spdX
+        }
+        if(ball.y > HEIGHT || ball.y<0){
+            ball.spdY = -ball.spdY
+        }
+        // if(ball.y == base.y && (ball.x > base.x && ball.x < base.x+base.width)){
+        //     ball.spdY = -ball.spdY
+        // }
+    }
+
     update = function(){
         ctx.clearRect(0,0, WIDTH, HEIGHT)
-        updateBasePostion()
         drawBall();
         drawBase();
+        tileList.forEach(drawTiles);
+        if (testCollion(base,ball)){
+            ball.spdY = -ball.spdY
+        }
+        updateBasePostion();
+        updateBallPostion();
     }
 
     startGame = function(){
         base.x = 150;
         ball.x = base.x + 100;
         ball.y = base.y - 100;
+        numOfTiles = 0;
+        var tileX = 5;
+        var tileY = 5;
+        tileList = [];
+        for (var i=1; i<=6; i++){
+            tileX = 5;
+            for(var j=1; j<= 11; j++){
+                tileList[numOfTiles] = {x:tileX, y:tileY}
+                numOfTiles++;
+                tileX += 45;
+            }
+            tileY += 25;
+        }
         setInterval(update, 20);
     }
 
