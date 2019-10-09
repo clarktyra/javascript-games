@@ -5,8 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Breakout</title>
+    <style>
+            body {
+                background-color: powderblue;
+            }
+    
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+    
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+    
+            li {
+                float: left;
+            }
+    
+            li a:hover {
+                background-color: #111;
+            }
+    
+            i {
+                color:red
+            }
+            h1 {
+                align-content: center;
+                text-align: center
+            }
+        </style>
 </head>
 <body>
+        <header>
+                <div class="container">
+                    <nav>
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="/snake/snake.html">Snake</a></li>
+                            <li><a href="/breakout/breakout.html">Breakout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
     <canvas height="500" width="500" id="ctx" style="border:5px solid #000000"></canvas>
     <script>
     var ctx     = document.getElementById("ctx").getContext('2d');
