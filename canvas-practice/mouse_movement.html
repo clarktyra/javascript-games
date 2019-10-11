@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mouse Movement</title>
+</head>
+<body>
+    <canvas width="800" height="600" style="border:5px solid #000000" id="ctx"></canvas>
+    <script>
+    
+    var ctx = document.getElementById('ctx').getContext('2d');
+    var WIDTH = 800;
+    var HEIGHT = 600;
+
+    var circle1 = {
+        x: 250,
+        y: 300,
+        radius: 20
+    }
+    
+    var circle2 = {
+        x: 550,
+        y: 300,
+        radius: 20
+    }
+
+    var eyeball1 = {
+        x: 250,
+        y: 300,
+        radius: 10
+    }
+
+    var eyeball2 = {
+        x: 550,
+        y: 300,
+        radius: 10
+    }
+
+    document.getElementById('ctx').onmousemove = function(mouse){
+        var mouseX = mouse.clientX - document.getElementById('ctx').getBoundingClientRect().left
+        var mouseY = mouse.clientY - document.getElementById('ctx').getBoundingClientRect().top
+
+
+        if (mouseX < eyeball1.x){
+            eyeball1.x = 240;
+            eyeball2.x = 540;
+        }
+        if (mouseX >= eyeball2.x){
+            eyeball1.x = 260;
+            eyeball2.x = 560;
+        }
+        if (mouseY <= eyeball1.y){
+            eyeball1.y = 290;
+            eyeball2.y = 290;
+        }
+        if (mouseY > eyeball1.y){
+            eyeball1.y = 310;
+            eyeball2.y = 310;
+        }
+        if(mouseX > eyeball1.x && mouseX <eyeball2.x){
+            eyeball1.x = 260;
+            eyeball2.x = 540;
+        }
+    }
+
+    drawEyeball = function (eyeball){
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(eyeball.x, eyeball.y, eyeball.radius, 0, 2 * Math.PI)
+        ctx.fill();
+        ctx.restore();
+
+    }
+
+    drawCircle = function (circle){
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI)
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    
+
+    update = function(){
+        ctx.clearRect(0,0, WIDTH, HEIGHT);
+        drawCircle(circle1)
+        drawCircle(circle2)
+        drawEyeball(eyeball1)
+        drawEyeball(eyeball2)
+    }
+
+    setInterval(update, 20) 
+
+
+    
+
+    
+    </script>
+</body>
+</html>
