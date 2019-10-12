@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shooter</title>
+</head>
+<body>
+    <canvas width="500" height="500" style="border:5px solid #000000"id="ctx"></canvas>
+
+    <script>
+    var ctx = document.getElementById("ctx").getContext("2d");
+    var bulletList, timer;
+
+    var shooter = {
+        x: 250,
+        y: 400,
+        width: 30,
+        height: 20
+    }
+
+    var bullet = {
+        height: 10,
+        width: 2
+    }
+
+    drawShooter = function(){
+        ctx.save();
+        ctx.fillStyle = 'black';
+        ctx.fillRect(shooter.x, shooter.y, shooter.width, shooter.height)
+        ctx.restore();
+    }
+
+    drawBullet= function(b, i){
+        ctx.save();
+        ctx.fillstyle = 'red';
+        ctx.fillRect(b.x, b.y, bullet.width, bullet.height)
+        ctx.restore();
+    }
+
+    updateBullets = function(){
+        for(key in bulletList){
+            bulletList[key].y -= 10;
+        }
+    }
+
+    update = function(){
+        ctx.clearRect(0,0, 500, 500);
+        if (timer % 200 == 0){
+            var bX = Math.random()*30 + shooter.x;
+            var bY = shooter.y;
+            bulletList.push({x:bX, y:bY});
+        }
+        bulletList.forEach(drawBullet)
+        drawShooter()
+        timer += 10;
+        updateBullets();
+        
+    }
+
+    startGame = function(){
+        bulletList = [];
+        timer = 0;
+        drawShooter();
+        setInterval(update, 40)
+    }
+    startGame()
+    
+    
+    </script>
+</body>
+</html>
