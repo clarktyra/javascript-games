@@ -1,73 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shooter</title>
 </head>
+
 <body>
-    <canvas width="500" height="500" style="border:5px solid #000000"id="ctx"></canvas>
+    <canvas width="500" height="500" style="border:5px solid #000000" id="ctx"></canvas>
 
     <script>
-    var ctx = document.getElementById("ctx").getContext("2d");
-    var bulletList, timer;
+        var ctx = document.getElementById("ctx").getContext("2d");
+        var bulletList, timer, isPause, bulletSound;
 
-    var shooter = {
-        x: 250,
-        y: 400,
-        width: 30,
-        height: 20
-    }
-
-    var bullet = {
-        height: 10,
-        width: 2
-    }
-
-    drawShooter = function(){
-        ctx.save();
-        ctx.fillStyle = 'black';
-        ctx.fillRect(shooter.x, shooter.y, shooter.width, shooter.height)
-        ctx.restore();
-    }
-
-    drawBullet= function(b, i){
-        ctx.save();
-        ctx.fillstyle = 'red';
-        ctx.fillRect(b.x, b.y, bullet.width, bullet.height)
-        ctx.restore();
-    }
-
-    updateBullets = function(){
-        for(key in bulletList){
-            bulletList[key].y -= 10;
+        var shooter = {
+            x: 250,
+            y: 400,
+            width: 30,
+            height: 20
         }
-    }
 
-    update = function(){
-        ctx.clearRect(0,0, 500, 500);
-        if (timer % 200 == 0){
-            var bX = Math.random()*30 + shooter.x;
-            var bY = shooter.y;
-            bulletList.push({x:bX, y:bY});
+        var bullet = {
+            height: 10,
+            width: 2
         }
-        bulletList.forEach(drawBullet)
-        drawShooter()
-        timer += 10;
-        updateBullets();
-        
-    }
 
-    startGame = function(){
-        bulletList = [];
-        timer = 0;
-        drawShooter();
-        setInterval(update, 40)
-    }
-    startGame()
-    
-    
+        document.onkeydown = function(event) {
+            if(event.keyCode == 32) {
+                if (!isPause){
+                    isPause = true
+                } else {
+                    isPause = false
+                }
+            }
+        }
+
+        drawShooter = function () {
+            ctx.save();
+            ctx.fillStyle = 'black';
+            ctx.fillRect(shooter.x, shooter.y, shooter.width, shooter.height)
+            ctx.restore();
+        }
+
+        drawBullet = function (b, i) {
+            ctx.save();
+            ctx.fillstyle = 'red';
+            ctx.fillRect(b.x, b.y, bullet.width, bullet.height)
+            ctx.restore();
+        }
+
+        sound = function(src){
+            this.sound = document.createElement("audio");
+            this.sound.src = src;
+            this.sound.setAttribute("preload", "auto");
+            this.sound.setAttribute("controls", "none");
+            this.sound.style.display = "none";
+            document.body.appendChild(this.sound);
+            this.play = function() {
+                this.sound.play()
+            } 
+            this.stop = function() {
+                this.sound.stop()
+            }
+        }
+
+        bulletSound = new sound("fire.mp3")
+
+        updateBullets = function () {
+            for (key in bulletList) {
+                bulletList[key].y -= 10;
+            }
+        }
+
+        update = function () {
+            if (!isPause) {
+                ctx.clearRect(0, 0, 500, 500);
+                if (timer % 200 == 0) {
+                    var bX = Math.random() * 30 + shooter.x;
+                    var bY = shooter.y;
+                    bulletList.push({ x: bX, y: bY });
+                    bulletSound.play()
+                }
+                bulletList.forEach(drawBullet)
+                drawShooter()
+                timer += 10;
+                updateBullets();
+                
+            } else {
+                ctx.fillText("Game Pauses", 100, 100)
+            }
+
+        }
+
+        startGame = function () {
+            bulletList = [];
+            timer = 0;
+            isPause = false;
+            drawShooter();
+            setInterval(update, 40)
+        }
+        startGame()
+
+
     </script>
 </body>
+
 </html>
