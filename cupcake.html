@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas width="500" height="500" style="border: 5px solid #000000" id="ctx"></canvas>
+    <script type="text/javascript">
+        var ctx = document.getElementById("ctx").getContext("2d");
+        var catcherOne = new Image();
+        var catcherTwo = new Image();
+        var catcherThree = new Image();
+        var catcherFour = new Image();
+        var background = new Image();
+        var blood = new Image();
+        var tile = new Image();
+        var food = new Image();
+
+        background.onload = function () {
+            blood.onload = function () {
+                catcherOne.onload = function () {
+                    catcherTwo.onload = function () {
+                        catcherThree.onload = function () {
+                            catcherFour.onload = function () {
+                                food.onload = function () {
+                                    tile.onload = function () {
+                                        //Game Area
+                                        console.log("loaded")
+
+                                    }
+                                    tile.src = "images/tile.png"
+                                }
+                                food.src = "images/food.png"
+                            }
+                            catcherFour.src = "images/catcher4.png"
+                        }
+                        catcherThree.src = "images/catcher3.png"
+                    }
+                    catcherTwo.src = "images/catcher2.png"
+                }
+                catcherOne.src = "images/catcher1.png"
+            }
+            blood.src = "images/blood.png"
+        }
+        background.src = "images/background.jpg"
+
+    </script>
+</body>
+
+</html>
