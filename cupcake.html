@@ -21,6 +21,44 @@
         var tile = new Image();
         var food = new Image();
 
+        var score = 0;
+        var level = 100;
+        var animation = 0;
+        var foodTimer = 0;
+        var gameOver = false;
+        var intervalvar;
+        var foodList = [];
+        var tileList = [];
+        var foodDrop = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450];
+
+        var tileObject = {
+            width: 50,
+            height: 20
+        }
+
+        var cupcake = {
+            width: 50,
+            height: 50,
+            speed: 3
+        }
+
+        var catcher = {
+            x: 100,
+            y: 100,
+            width: 50,
+            height: 50,
+            jump: 0,
+            jumpUnit: 5,
+            onair: false,
+            spd: 0,
+            leftPressed: false,
+            rightPressed: false,
+            gravity: 10,
+            safe: true
+        }
+
+        
+
         background.onload = function () {
             blood.onload = function () {
                 catcherOne.onload = function () {
@@ -30,6 +68,27 @@
                                 food.onload = function () {
                                     tile.onload = function () {
                                         //Game Area
+
+                                        startGame = function(){
+                                            score= 0;
+                                            level = 100;
+                                            catcher.x = 100;
+                                            catcher.y = 350;
+                                            catcher.onair = false;
+                                            catcher.leftPressed = false;
+                                            catcher.rightPressed = false;
+                                            catcher.safe = true;
+                                            animation = 0;
+                                            foodTimer = 0;
+                                            gameOver = false;
+                                            tileList = [];
+                                            foodList = [];
+
+                                            for(var i=0; i<=9; i++){
+                                                tileList.push({x:i*50, y:400})
+                                            }
+                                        }
+
                                         console.log("loaded")
 
                                     }
