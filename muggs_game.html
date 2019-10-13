@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Muggs</title>
+</head>
+<body>
+    <canvas width="500" height="500" style="border: 5px solid #000000" id="ctx"></canvas>
+    <script>
+    var ctx = document.getElementById("ctx").getContext("2d")
+    var WIDTH = 500;
+    var HEIGHT = 500;
+
+    var redDot = {
+        x: 250,
+        y: 250,
+        r:3,
+        color: red
+    }
+
+    var showDot = function(){
+        ctx.save()
+        ctx.fillarc(redDot.x, redDot.y, redDot.r, 0, Math.PI*2)
+        ctx.restore();
+    }
+
+    
+
+    var game = function(){
+        ctx.clearRect(0,0,WIDTH, HEIGHT);
+        
+        showDot();
+        
+
+    }
+
+    game()
+
+    </script>
+</body>
+</html>
