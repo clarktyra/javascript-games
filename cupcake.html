@@ -100,6 +100,33 @@
                                             }
                                         }
 
+                                        food_catcher_collision = function(f){
+                                            return (
+                                                (f.x < catcher.x + catcher.width) &&
+                                                (catcher.x < f.x + foodObject.width) &&
+                                                (f.y < catcher.y + catcher.height) &&
+                                                (catcher.y < f.y + foodObject.height)
+                                            );
+                                        }
+
+                                        food_tile_collision = function(f,t){
+                                            return (
+                                                (f.x < t.x + tileObject.width) &&
+                                                (t.x < f.x + foodObject.width) &&
+                                                (f.y < t.y + tileObject.height) &&
+                                                (t.y < f.y + foodObject.height)
+                                            );
+                                        }
+
+                                        catcher_tile_collison = function(t){
+                                            return (
+                                                (catcher.x <= t.x + tileObject.width) &&
+                                                (t.x <= catcher.x + catcher.width)  &&
+                                                (catcher.y + catcher.height <= t.y)
+                                            );
+                                        }
+
+
                                         jump = function() {
                                             if(catcher.jump > 0 && catcher.onair){
                                                 catcher.y -= catcher.jumpUnit;
@@ -165,6 +192,22 @@
                                             for(var i=0 ; i<tileList.length; i++){
                                                 drawObject(tile, tileList[i].x, tileList[i].y, tileObject.width, tileObject.height)
                                             }
+
+                                            for (var i in foodList){
+                                                if(food_catcher_collision(foodList[i])){
+                                                    score++;
+                                                    foodList.splice(i,1);
+                                                }
+                                            }
+
+                                            for (var i in foodList){
+                                                for(var j in tileList){
+                                                    if (food_tile_collision(foodList[i], tileList[j])) {
+                                                        tileList.splice(j,1)
+                                                    }
+                                                }
+                                            }
+
                                             updateFoodPosition();
                                             updateCatcherPosition();
                                             jump();
