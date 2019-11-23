@@ -45,7 +45,7 @@
         var catcher = {
             x: 100,
             y: 100,
-            width: 50,
+            width: 40,
             height: 50,
             jump: 0,
             jumpUnit: 5,
@@ -161,13 +161,16 @@
                                                 catcher.x += catcher.spd;
 
                                             }
+                                            if(catcher.y > 450){
+                                                catcher.y = 450
+                                            }
                                         }
 
                                         updatePosition = function(){
                                             ctx.clearRect(0,0, 500, 500);
                                             drawObject(background, 0, 0, 500, 500);
                                             foodTimer++;
-                                            if(foodTimer > 100){
+                                            if(foodTimer > level){
                                                 foodList.push({"x":foodDrop[(Math.round(Math.random()*9))], "y":0});
                                                 foodTimer = 0;
                                             }
@@ -196,6 +199,9 @@
                                             for (var i in foodList){
                                                 if(food_catcher_collision(foodList[i])){
                                                     score++;
+                                                    if(score % 2 == 0){
+                                                        level--;
+                                                    }
                                                     foodList.splice(i,1);
                                                 }
                                             }
@@ -207,6 +213,25 @@
                                                     }
                                                 }
                                             }
+
+                                            if(!catcher.onair){
+                                                for(var i in tileList){
+                                                    if(catcher_tile_collison(tileList[i])){
+                                                        catcher.safe = true;
+                                                        break;
+                                                    }
+                                                    catcher.safe = false;
+                                                }
+                                                if (!catcher.safe){
+                                                    catcher.y += catcher.gravity;
+                                                }
+                                            }
+
+                                            drawObject(food, 440, 10, 20, 20);
+                                            ctx.fillStyle = "#FFFFFF";
+                                            ctx.font = "20px Calibri";
+                                            ctx.fillText(score,465, 27);
+                                            ctx.fillText("Level: "+ (100-level+i), 10, 27);
 
                                             updateFoodPosition();
                                             updateCatcherPosition();
