@@ -69,8 +69,21 @@
                                     tile.onload = function () {
                                         //Game Area
 
+                                        ctx.drawImage(background, 0, 0, 500, 500);
+                                        ctx.strokeStyle = "#FFFFFF";
+                                        ctx.font = "30px Calibri";
+                                        ctx.strokeText("Click here to start the game", 80, 250)
+
+
                                         drawObject = function(object, x, y, width, height){
                                             ctx.drawImage(object, x, y, width, height)
+                                        }
+
+                                        document.getElementById("ctx").onmousedown = function() {
+                                            if(!gameover){
+                                                clearInterval(intervalvar)
+                                            }
+                                            startGame();
                                         }
 
                                         document.onkeydown = function(event){
@@ -162,8 +175,22 @@
 
                                             }
                                             if(catcher.y > 450){
-                                                catcher.y = 450
+                                                catcher.y = 450;
+                                                gameOver = true;
                                             }
+                                        }
+
+                                        gameover = function(){
+                                            ctx.save();
+                                            ctx.globalAlpha = 0.6;
+                                            drawObject(blood, 100, 100, 300, 300);
+                                            ctx.globalAlpha = 1.0;
+                                            ctx.strokeStyle = "#FFFFFF";
+                                            ctx.font = "30px Calibri";
+                                            ctx.strokeText("Game Over", 180, 200);
+                                            ctx.strokeText("Click to Restart", 160, 250);
+                                            ctx.restore();
+                                            clearInterval(intervalvar);
                                         }
 
                                         updatePosition = function(){
@@ -174,9 +201,13 @@
                                                 foodList.push({"x":foodDrop[(Math.round(Math.random()*9))], "y":0});
                                                 foodTimer = 0;
                                             }
-                                            if(catcher.onair){
-                                                drawObject(catcherFour, catcher.x, catcher.y, catcher.width, catcher.height);
 
+                                            if(gameOver){
+                                                drawObject(catcherThree, catcher.x, 470, 50, 30);
+                                                gameover();
+                                            }
+                                            else if(catcher.onair){
+                                                drawObject(catcherFour, catcher.x, catcher.y, catcher.width, catcher.height);
                                             }
                                             else if (animation == 0){
                                                 drawObject(catcherTwo, catcher.x, catcher.y, catcher.width, catcher.height);
@@ -231,7 +262,7 @@
                                             ctx.fillStyle = "#FFFFFF";
                                             ctx.font = "20px Calibri";
                                             ctx.fillText(score,465, 27);
-                                            ctx.fillText("Level: "+ (100-level+i), 10, 27);
+                                            ctx.fillText("Level: "+ (100-level+1), 10, 27);
 
                                             updateFoodPosition();
                                             updateCatcherPosition();
@@ -262,11 +293,10 @@
                                                 drawObject(tile, tileList[i].x, tileList[i].y, tileObject.width, tileObject.height)
                                             }
 
-                                            inerval = setInterval(updatePosition, 10)
+                                            intervalvar = setInterval(updatePosition, 10)
                                         }
 
                                         console.log("loaded")
-                                        startGame()
                                     }
                                     tile.src = "images/tile.png"
                                 }
