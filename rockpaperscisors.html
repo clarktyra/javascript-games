@@ -6,10 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-    body {
+      body {
             background-color: powderblue;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
+
+        canvas {
+            background-color: mediumpurple
+        }
+
+        .container1 {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            align-content: center;
+            text-align: center
+        }
+
 
         ul {
             list-style-type: none;
@@ -36,12 +49,19 @@
         }
 
         i {
-            color:red
+            color: darkred
         }
+
         h1 {
             align-content: center;
+            text-align: center
+        }
+        .gameArea {
+            margin: 0 auto;
             text-align: center;
-            font-size: 50px
+        }
+        canvas {
+            display:inline-block;
         }
         </style>
 </head>
@@ -61,6 +81,16 @@
         </div>
     </header>
 
+    <div class=container1>
+            <h1>RockPaperScisors</h1>
+            <h4>Click your choice</h4>
+        </div>
+        <div class="gameArea">
+            <img style="width: 200px" src="https://i.imgur.com/4JnbeAm.jpg"/>
+            <img style="width: 200px" src="http://clipart-library.com/images/kTKo77Rjc.png" />
+            <img style="width: 200px"src="https://i0.wp.com/freepngimages.com/wp-content/uploads/2019/06/open-scissors.png?fit=1000%2C1000" />
+        </div>
+
     <script type="text/javascript">
         //define and assign variables for computerChoice and playerChoice
         function playGame(){
@@ -68,11 +98,12 @@
         var computerChoice = choices[Math.floor(Math.random() * 3)]
         console.log(computerChoice)
 
-        var userChoice = prompt("Type either rock, paper, or scissors")
+        // var userChoice = prompt("Type either rock, paper, or scissors")
         console.log(userChoice)
-        alert("The computer picked " + computerChoice)
-
+        // alert("The computer picked " + computerChoice)
         
+
+
         }
         
         playGame();
