@@ -1,18 +1,51 @@
-//define and assign variables for computerChoice and playerChoice
-function playGame(){
+var choice;
+var computerChoice;
+
+function printComChoice(){
     var choices = ["rock", "paper", "scissors"];
-    var computerChoice = choices[Math.floor(Math.random() * 3)]
-    
-    console.log(computerChoice)
+    computerChoice = choices[Math.floor(Math.random() * 3)]
+     document.getElementById("choiceArea").innerHTML = computerChoice;
+    winner();
+}
 
-    // var userChoice = prompt("Type either rock, paper, or scissors")
-    console.log(userChoice)
-    // alert("The computer picked " + computerChoice)
-    
+function userChoice(a){
+    choice = a
+}
 
+function setAreaBlank(){
+    document.getElementById("choiceArea").innerHTML = "";
+}
 
+function winner(){
+    if (choice === computerChoice){
+        document.getElementById("winnerArea").innerHTML = "<h1>Draw</h1>";
+    } else if (choice === "rock" && computerChoice === "scissors" || choice === "scissors" && computerChoice === "paper" || choice === "paper" && computerChoice === "rock" ){
+        document.getElementById("winnerArea").innerHTML = "<h1>You Win!</h1>";
+    } else {
+        document.getElementById("winnerArea").innerHTML = "<h1>You Lose</h1>";
     }
 
-//
     
-    playGame();
+    
+}
+
+
+$("#rock").on("click", function() {
+    userChoice("rock");
+    setAreaBlank();
+    printComChoice();
+    
+  });
+$("#paper").on("click", function() {
+    userChoice("paper");
+    setAreaBlank();
+    printComChoice()
+    
+  });
+$("#scissors").on("click", function() {
+    userChoice("scissors");
+    setAreaBlank();
+    printComChoice();
+    
+  });
+

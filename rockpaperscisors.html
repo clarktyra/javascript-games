@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/rockpaperscissors.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -29,17 +31,20 @@
     </div>
     <div class="choiceArea">
             <div class="row">
-                    <div class="column" value="rock">rock</div>
-                    <div class="column" value="paper">paper</div>
-                    <div class="column" value="scissors">scissors</div>
+                    <div class="column" value="rock" id="rock">rock</div>
+                    <div class="column" value="paper" id="paper">paper</div>
+                    <div class="column" value="scissors" id="scissors">scissors</div>
                   </div>
         <!-- <img style="width: 200px" src="https://i.imgur.com/4JnbeAm.jpg"/>
         <img style="width: 200px" src="http://clipart-library.com/images/kTKo77Rjc.png" />
         <img style="width: 200px"src="https://i0.wp.com/freepngimages.com/wp-content/uploads/2019/06/open-scissors.png?fit=1000%2C1000" /> -->
     <div id="computerArea">
             <h4>The computer chose</h4>
+            <p id="choiceArea"></p>
             <img id="comImage" style="width: 200px" />
-            <h4>You won</h4>
+            
+    </div>
+    <div id="winnerArea">  
     </div>
     </div>
 
