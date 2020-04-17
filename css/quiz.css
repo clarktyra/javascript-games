@@ -71,3 +71,7 @@ img:hover{
     display: table;
     clear: both;
   }
+
+  .hide {
+    display: none;
+  }

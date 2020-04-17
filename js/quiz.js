@@ -25,10 +25,14 @@ var feedback    = document.getElementById("feedback");
 var initials    = document.getElementById("initials");
 
 var seconds = 5;
+var score = 0;
 
 function startTimer(){
     event.preventDefault();
     timerId = setInterval(clockTick, 1000);
+    var startScreen = document.getElementById("start-screen");
+    startScreen.setAttribute("class", "hide")
+
 }
 
 function clockTick() {
@@ -42,6 +46,11 @@ function clockTick() {
 function quizOver(){
     clearInterval(timerId)
     console.log("Quiz over")
+    var endScreen = document.getElementById("end-screen");
+    endScreen.removeAttribute("class", "hide");
+    var finalScore = document.getElementById("final-score");
+    finalScore.textContent = score;
+
 }
 
 startButton.addEventListener("click", startTimer);
