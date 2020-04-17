@@ -17,8 +17,8 @@ var questions = [
 ];
 
 var startButton = document.getElementById("start");
-var time       = document.getElementById("time");
-var questions   = document.getElementById("questions");
+var time        = document.getElementById("time");
+var questionArea   = document.getElementById("questions");
 var choices     = document.getElementById("choices");
 var submit      = document.getElementById("submit");
 var feedback    = document.getElementById("feedback");
@@ -32,7 +32,8 @@ function startTimer(){
     timerId = setInterval(clockTick, 1000);
     var startScreen = document.getElementById("start-screen");
     startScreen.setAttribute("class", "hide")
-
+    questionArea.removeAttribute("class", "hide")
+    showQuestion();
 }
 
 function clockTick() {
@@ -46,12 +47,32 @@ function clockTick() {
 function quizOver(){
     clearInterval(timerId)
     console.log("Quiz over")
+    questionArea.setAttribute("class", "hide")
     var endScreen = document.getElementById("end-screen");
     endScreen.removeAttribute("class", "hide");
     var finalScore = document.getElementById("final-score");
     finalScore.textContent = score;
+}
+var questionNumber = 0;
+function showQuestion() {
+  var questionTitle = document.getElementById("question-title");
+  questionTitle.textContent = questions[questionNumber].question;
+  // show button options
+  choices.innerHTML = "";
+    for (let i = 0; i < questions[questionNumber].options.length; i++) {
+      var choicesButton = document.createElement("button");
+      choicesButton.textContent = questions[questionNumber].options[i];
+      choicesButton.onclick = questionSubmit;
+      choices.appendChild(choicesButton);
+    }
+  
+}
 
+function questionSubmit(){
+  questionNumber++;
+  showQuestion()
 }
 
 startButton.addEventListener("click", startTimer);
 
+console.log(questions.length)
