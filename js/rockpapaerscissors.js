@@ -1,5 +1,13 @@
 var choice;
 var computerChoice;
+var wins = 0;
+var attempts = 0;
+var winPercentage; 
+function calculateWinPercentage(a, b){
+    winPercentage = (((a / b) * 100)).toFixed(2) + "%";
+    document.getElementById("winPercentage").innerHTML = winPercentage;
+}
+
 
 function printComChoice(){
     var choices = ["rock", "paper", "scissors"];
@@ -23,18 +31,25 @@ function setAreaBlank(){
 }
 
 function winner(){
+    
     if (choice === computerChoice){
+        attempts++;
         document.getElementById("winnerArea").innerHTML = "<h1>Draw</h1>";
+        calculateWinPercentage(wins, attempts);
     } else if (choice === "rock" && computerChoice === "scissors" || choice === "scissors" && computerChoice === "paper" || choice === "paper" && computerChoice === "rock" ){
+        wins++;
+        attempts++;
         document.getElementById("winnerArea").innerHTML = "<h1>You Win!</h1>";
+        document.getElementById("wins").innerHTML = wins;
+        calculateWinPercentage(wins, attempts);
+        
     } else {
+        attempts++;
         document.getElementById("winnerArea").innerHTML = "<h1>You Lose</h1>";
-    }
-
-    
-    
+        calculateWinPercentage(wins, attempts); 
+    } 
+    console.log(winPercentage)
 }
-
 
 $("#rock").on("click", function() {
     userChoice("rock");
