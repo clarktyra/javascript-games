@@ -59,14 +59,14 @@ var feedback    = document.getElementById("feedback");
 var initials    = document.getElementById("initials");
 var endScreen = document.getElementById("end-screen");
 
-var seconds = 20;
+var seconds = 30;
 var score ;
 var userChoices;
 var questionNumber;
 
 function startTimer(){
     event.preventDefault();
-    seconds = 20;
+    seconds = 30;
     score = 0;
     questionNumber = 0
     userChoices = [];
