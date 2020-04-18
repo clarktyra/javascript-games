@@ -13,42 +13,41 @@ var questions = [
     question: "what is the capital of Pennsylvania?",
     options: ["Philidelphia", "Pittsburg", "Harrisburg", "Lancaster"],
     answer: "Philidelphia"
-   }
-  //,
-  // {
-  //   question: "what is the capital of New Jersey?",
-  //   options: ["Baltimore", "Annapolis", "Potomac", "Cumberland"],
-  //   answer: "Annapolis"
-  // },
-  // {
-  //   question: "what is the capital of New York?",
-  //   options: ["McClean", "Jamestown", "Richmond", "Williamsburg"],
-  //   answer: "Richmond"
-  // },
-  // {
-  //   question: "what is the capital of Connecticut?",
-  //   options: ["Philidelphia", "Pittsburg", "Harrisburg", "Lancaster"],
-  //   answer: "Philidelphia"
-  // }, {
-  //   question: "what is the capital of Rhode Island?",
-  //   options: ["Baltimore", "Annapolis", "Potomac", "Cumberland"],
-  //   answer: "Annapolis"
-  // },
-  // {
-  //   question: "what is the capital of Main?",
-  //   options: ["McClean", "Jamestown", "Richmond", "Williamsburg"],
-  //   answer: "Richmond"
-  // },
-  // {
-  //   question: "what is the capital of New Hampshire?",
-  //   options: ["Philidelphia", "Pittsburg", "Harrisburg", "Lancaster"],
-  //   answer: "Philidelphia"
-  // },
-  // {
-  //   question: "what is the capital of Vermont?",
-  //   options: ["Philidelphia", "Pittsburg", "Harrisburg", "Lancaster"],
-  //   answer: "Philidelphia"
-  // }
+  },
+  {
+    question: "what is the capital of New Jersey?",
+    options: ["Trenton", "Newark", "Jersey City", "Atlantic City"],
+    answer: "Trenton"
+  },
+  {
+    question: "what is the capital of New York?",
+    options: ["Rochester", "Buffalo", "New York City", "Albany"],
+    answer: "Albany"
+  },
+  {
+    question: "what is the capital of Connecticut?",
+    options: ["Milford", "Stamford", "New Haven", "Hartford"],
+    answer: "Hartford"
+  }, {
+    question: "what is the capital of Rhode Island?",
+    options: ["Warwick", "Newport", "Providence", "Cranston"],
+    answer: "Providence"
+  },
+  {
+    question: "what is the capital of Maine?",
+    options: ["Portland", "Augusta", "Bangor", "Harpswell"],
+    answer: "Augusta"
+  },
+  {
+    question: "what is the capital of New Hampshire?",
+    options: ["Concord", "Manchester", "Portsmouth", "Bedford"],
+    answer: "Concord"
+  },
+  {
+    question: "what is the capital of Vermont?",
+    options: ["Middlebury", "Bennington", "Burlington", "Montpelier"],
+    answer: "Montpelier"
+  }
 ];
 
 var startButton = document.getElementById("start");
@@ -60,14 +59,14 @@ var feedback    = document.getElementById("feedback");
 var initials    = document.getElementById("initials");
 var endScreen = document.getElementById("end-screen");
 
-var seconds = 5;
-var score = 0;
-var userChoices = [];
-var questionNumber = 0;
+var seconds = 20;
+var score ;
+var userChoices;
+var questionNumber;
 
 function startTimer(){
     event.preventDefault();
-    seconds = 5;
+    seconds = 20;
     score = 0;
     questionNumber = 0
     userChoices = [];
